@@ -1,0 +1,43 @@
+{% extends 'mainlayout.html' %}
+{% block title %} Welcome {% endblock %}
+
+{% block content %}
+<main class="home-page page">
+    <main class="main-content">
+        <h2 class="section-title">Featured Post</h2>
+        {% if featured_post %}
+        <article class="post" id="featured_post">
+            {% if featured_post.thumbnail %}
+            <img src="{{featured_post.thumbnail.url}}" alt="" class="post-thumbnail">
+            <a href="{% url 'posts:post_detail' featured_post.id featured_post.slug%}">
+                <h3 class="post-title">{{featured_post.title}}</h3>
+            </a>
+            <h4 class="post-author">{{featured_post.author}}</h4>
+            <p>Keywords: <span class="post-keywords">{{featured_post.keywords}}</span> </p>
+            <section class="post-content">
+                {{featured_post.content | linebreaks }}
+                <p class="post-date"> <span class="posted-on">Posted: {{featured_post.created_on}} | <span class="updated-on">Updated: {{featured_post.updated_on}}</span></span></p>
+                <p class="comment-count"><a href="{% url 'posts:post_detail' featured_post.id featured_post.slug %}" ><i class='fa fa-comments'></i>Total Comments: </a> {{comment_count}}</p>
+            </section>
+            {% endif%}
+
+        </article>
+        {% endif %}
+    </main>
+    <main class="right-sidebar">
+        <article class="latest-posts">
+            <h3 class="section-title"> Latest Posts</h3>
+            {% if latest_posts %}
+            <section class="latest-post-container">
+                {% for post in latest_posts %}
+                <p>
+                    <a href="{% url 'posts:post_detail' post.id post.slug %}" class="latest-post-link">{{post.title}} | {{post.created_on}} </a>
+                {% endfor %}
+
+            </section>
+            {% endif %}
+        </article>
+
+    </main>
+</main>
+{% endblock %}

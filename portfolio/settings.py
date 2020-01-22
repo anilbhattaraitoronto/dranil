@@ -20,12 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#u*fae%_b2bjunv2^rj6_8!nef@7+9=*$#aktl+ebd0-dt42v3'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +50,7 @@ ROOT_URLCONF = 'portfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,4 +113,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+try:
+    from local_settings import *
+except ImportError:
+    pass
+
+
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'portfolio/staticfiles'), ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'

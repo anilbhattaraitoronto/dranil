@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{% static 'images/ab_logo.png' %}">
+    <script src="https://kit.fontawesome.com/3a0f20c917.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>{% block title %}{% endblock title%} | Anil Bhattarai, PhD </title>
+</head>
+<body>
+    <header class="main-header">
+            <h1 class="masthead"> <a href="{% url 'home_view' %}"><span class="masthead-title">Anil Bhattarai</span></a> </h1>
+            <a href="{% url 'home_view' %}">
+            <img src="{% static 'images/ab_logo.svg'%}" alt="Logo" class="masthead-logo" >
+        </a>
+        
+        <nav class="auth-nav">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'accounts:logout_view' %}" class="auth-link" title="logout"> Logout <i class="fas fa-sign-out-alt"></i> </a>
+            <a href="#" class="auth-link" title="welcome {{request.user.first_name}}" >Welcome <span>{{request.user.first_name}}</span> </a>
+            {% else %}
+            <button class="login-register-button">Login / Register</button>
+            <article class="login-register-forms">
+                <h3><span class="close-forms-button">Close <i class="fas fa-times-circle"></i> </span></h3>
+                <form action="{% url 'accounts:login_view' %}" method="POST" class="login-form">
+                    {% csrf_token %}
+                    <h4 class="form-title"> <i class="fas fa-sign-in-alt"></i> Login</h4>
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" required>
+                    <button class="submit-button"> <i class="fas fa-sign-in-alt"></i> Login</button>
+                </form>
+                <form action="{% url 'accounts:create_account' %}" method="POST" class="create-account-form">
+                    {% csrf_token %}
+                    <h4 class="form-title"><i class="fas fa-user-plus"></i> Create Account</h4>
+                    <label for="id_first_name">First Name</label>
+                    <input type="text" name="first_name" id="id_first_name" required>
+                    <label for="id_last_name">Last Name</label>
+                    <input type="text" name="last_name" id="id_lastname" required>
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" id="id_username" required>
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" required>
+                    <label for="id_password">Password</label>
+                    <input type="password" name="password" id="id_password" required>
+                    <label for="id_confirm_password"> Confirm Password</label>
+                    <input type="password" name="confirm_password" id="id_confirm_password" required>
+                    <button class="submit-button"> <i class="fas fa-user-plus"></i> Create Account</button>
+                </form>
+            </article>
+            {% endif %}
+            {% if request.user.is_authenticated and request.user.is_staff %}
+            <li class="admin-nav-container" title="manage site" >Manage <i class="fas fa-chevron-down"></i>
+                <ul class="admin-nav" title="admin area">
+                    <a href="{% url 'admin:index' %}" class="auth-link admin-link" title="admin site">Admin</a>
+                    <a href="#" class="auth-link admin-link" title="add post">Add Post</a>
+                    <a href="#" class="auth-link admin-link" title="add user">Add User</a>
+                    <a href="#" class="auth-link admin-link" title="message staff">Message Staff</a>
+                </ul>
+            </li>
+            
+            {% endif %}
+        </nav>
+
+    </header>     
+    <nav class="main-nav" title="main navigation">
+        <a href="{% url 'home_view' %}" class="main-link"> <i class="fas fa-home"></i> Home </a>
+        <a href="#" class="main-link">Blog</a>
+        {% if request.user.is_authenticated %}
+        <button class="show-contact-form-button">Contact</button>
+        <article class="contact-form-container">
+            <form action="{% url 'accounts:send_message' %}" method="POST" class="contact-form">
+                {% csrf_token %}
+                <h4 class="form-title"> {{request.user.first_name}}, Contact Me <span class="close-contact-form-button">Close <i class="fas fa-times-circle"></i> </span>  </h4>
+                <label for="id_subject">Subject (required)</label>
+                <input type="text" name="subject" id="id_subject" required>
+                <label for="message"> Message (required) </label>
+                <textarea name="message" id="id_message" cols="30" rows="10" type="text" required></textarea>
+                <button class="submit-button">Send Message</button>
+            </form>
+        </article>
+        {% endif %}
+    </nav>
+    <main class="page-content">
+            {% block content %}
+            {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; Anil Bhattarai 2020 - {% now 'Y' %}. All rights reserved.</p>
+    </footer>
+    <script src="{% static 'js/main.mjs' %}" type="module" ></script>
+</body>
+</html>

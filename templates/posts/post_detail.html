@@ -1,0 +1,91 @@
+{% extends 'mainlayout.html' %}
+
+{% block title %}{{post.title}}{% endblock title%}
+
+{% block content %}
+<main class="detail-content">
+    {% if post %}
+    <article class="post">
+        <p>Your are reading <i class="fas fa-chevron-right"></i>: <span class="bread-crumb">{{post.title}}</span> </p>
+        {% if post.thumbnail %}
+        <img src="{{post.thumbnail.url}}" alt="" class="post-thumbnail">
+        <h3 class="post-title">{{post.title}}</h3>
+        <h4 class="post-author">{{post.author}}</h4>
+        <p>Keywords: <span class="post-keywords"> {{post.keywords}}</span></p>
+        <section class="post-content">
+            {{post.content | linebreaks }}
+            <p class="post-date"> <span class="posted-on">Posted: {{post.created_on}} | <span class="updated-on">Updated: {{post.updated_on}}</span></span></p>
+        </section>
+            {% if request.user.is_authenticated %}
+            <section class="comment-form-container">
+                <form action="{% url 'posts:add_comment' %}" method="POST" class="comment-form">
+                    {% csrf_token %}
+                    <h4 class="comment-form-title">Post Comment</h4>
+                    <input type="hidden" name="post_id" value={{post.id}}>
+                    <label for="id_text">Your Comment:</label>
+                    <textarea name="text" id="id_text" cols="30" rows="10" required></textarea>
+                    <button type="submit" class="comment-button">Post Comment</button>
+                </form>
+            </section>
+            {% endif %}
+        {% if comments %}
+        <section class="comments">
+            <h3 class="comment-section-title">Total Comments <i class='fa fa-comments'></i>:  {{comments.count}} </h3>
+            {% for comment in comments %}
+            <div class="post-comment">
+                <p class="comment-writer">{{comment.writer}}</p>
+                <p class="comment-date">{{comment.text}}</p>
+                    <p class="comment-date">{{comment.posted_on}}</p>
+            {% if request.user.get_full_name == comment.writer %}
+            <section class="edit-comment-section">
+                <button class="open-edit-comment">Edit</button> <button class="open-delete-comment">Delete</button>
+                <form action="#" class="edit-comment-form">
+                    <h4 class="form-title">Edit Comment <span class="close-edit-comment-form">Close</span> </h4>
+                    {% csrf_token %}
+                    <input type="hidden" name='comment_id' value="{{comment.id}}">
+                    <label for="id_text">Edit Comment:</label>
+                    <textarea name="text" id="id_text" cols="30" rows="10" required>
+                        {{comment.text}}
+                    </textarea>
+                    <button class="edit-comment">Edit Comment</button>
+                </form>
+                <form action="{% url 'posts:delete_comment' %}" method="POST" class="delete-comment-form">
+                    {% csrf_token %}
+                    <span class="close-delete-comment-form">Close</span>
+                    <p>Do you really want to delete this comment?</p>
+                    <input type="hidden" name="comment_id" value={{comment.id}}>
+                    <button class="delete-comment">Yes, Delete Comment</button>
+
+                </form>
+            </section>
+            {% endif %}
+            </div>
+            
+            {% endfor %}
+            {% else %}
+            <p>Be the first to comment.</p>
+        </section>
+        {% endif %}
+        {% endif%}
+
+    </article>
+    {% endif %}
+    <section class="right-sidebar">
+        <article class="latest-posts">
+            <h3 class="section-title"> Latest Posts</h3>
+            {% if latest_posts %}
+            <section class="latest-post-container">
+                {% for post in latest_posts %}
+                <p>
+                    <a href="{% url 'posts:post_detail' post.id post.slug %}" class="latest-post-link">{{post.title}}</a>
+                    <span>{{post.posted_on}} | {{post.updated_on}}</span>
+                </p>
+                {% endfor %}
+
+            </section>
+            {% endif %}
+        </article>
+
+    </section>
+</main>
+{% endblock %}
