@@ -13,13 +13,12 @@ class Post(models.Model):
         ('sexuality', 'Sexuality')
     )
     is_archived = models.BooleanField(default=False)
-    is_featured = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=True)
     topic = models.CharField(max_length=20, choices=TOPIC_CHOICES)
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100)
     author = models.CharField(max_length=80)
     keywords = models.CharField(max_length=250)
-    summary = models.CharField(max_length=250)
     thumbnail = models.ImageField(
         blank=True, null=True, upload_to='posts/images/%Y/%M')
     content = models.TextField()
@@ -27,10 +26,13 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('created_on', 'author', 'topic')
+        ordering = ('created_on',)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('posts:post_detail', args=[str(self.id), self.slug],)
 
 
 class Comment(models.Model):

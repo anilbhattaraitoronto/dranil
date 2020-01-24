@@ -11,7 +11,8 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('writer', 'email', 'posted_on')
+    list_display = ('writer', 'email', 'post', 'posted_on')
+    list_display_links = ('post', )
 
 
 admin.site.register(Post, PostAdmin)

@@ -55,10 +55,9 @@
             </article>
             {% endif %}
             {% if request.user.is_authenticated and request.user.is_staff %}
-            <li class="admin-nav-container" title="manage site" >Manage <i class="fas fa-chevron-down"></i>
+            <li class="admin-nav-container" title="manage site" >Manage <i class="fas fa-chevron-down" style="opacity: .5"></i>
                 <ul class="admin-nav" title="admin area">
                     <a href="{% url 'admin:index' %}" class="auth-link admin-link" title="admin site">Admin</a>
-                    <a href="#" class="auth-link admin-link" title="add post">Add Post</a>
                     <a href="#" class="auth-link admin-link" title="add user">Add User</a>
                     <a href="#" class="auth-link admin-link" title="message staff">Message Staff</a>
                 </ul>
@@ -69,10 +68,20 @@
 
     </header>     
     <nav class="main-nav" title="main navigation">
-        <a href="{% url 'home_view' %}" class="main-link"> <i class="fas fa-home"></i> Home </a>
-        <a href="#" class="main-link">Blog</a>
+        <a href="{% url 'home_view' %}" class="main-link" title="Welcome"> <i class="fas fa-home" ></i> Home </a>
+        <div class="main-link topic-list-container">
+            <button class="topic-list-button">Topics <i class="fas fa-chevron-down"></i> </button>
+            <ul class="topic-list">
+                {% for key, value in topics %}
+                <li><a href="{% url 'posts:topic_posts' key %}" class="topic-link">{{value}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+
+
         {% if request.user.is_authenticated %}
-        <button class="show-contact-form-button">Contact</button>
+        <button class="show-contact-form-button" title="pop up send message form">Contact</button>
         <article class="contact-form-container">
             <form action="{% url 'accounts:send_message' %}" method="POST" class="contact-form">
                 {% csrf_token %}
@@ -86,13 +95,40 @@
         </article>
         {% endif %}
     </nav>
-    <main class="page-content">
+    <main class="content">
             {% block content %}
             {% endblock %}
+        <section class="right-sidebar">
+            
+            
+            {% if request.user.is_authenticated and request.user.is_staff %}
+            <article class="create-post-container">
+                <h4 class="form-title open-add-post-form">Create New Post <i class="fas fa-plus"></i> </h4>
+                <form action="{% url 'posts:create_post' %}" method="POST" class="create-post-form" enctype="multipart/form-data">
+                    <h4 class="post-title">Create Post</h4>
+                    <span class="close-add-post-form">Close &#9747; </span>
+                    {% csrf_token %}
+                    {{create_post_form.as_p}}
+                    <button class="create-post-button">Create New Post</button>
+                </form>
+                
+            </article>
+            {% endif %}
+            <article class="latest-posts">
+
+                <h3 class="section-title">Latest Posts</h3> 
+                {% if post_titles %}
+                {% for  item in post_titles %}
+                <p> <a href="{% url 'posts:post_detail' item.id item.slug %}"> {{item.title}}</a></p>
+                {% endfor %}
+                {% endif %}
+            </article>
+        </section>
     </main>
     <footer>
         <p>&copy; Anil Bhattarai 2020 - {% now 'Y' %}. All rights reserved.</p>
     </footer>
     <script src="{% static 'js/main.mjs' %}" type="module" ></script>
+
 </body>
 </html>

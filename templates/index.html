@@ -4,7 +4,7 @@
 {% block content %}
 <main class="home-page page">
     <main class="main-content">
-        <h2 class="section-title">Featured Post</h2>
+        <h3 class="section-title">Featured Post</h3>
         {% if featured_post %}
         <article class="post" id="featured_post">
             {% if featured_post.thumbnail %}
@@ -23,21 +23,6 @@
 
         </article>
         {% endif %}
-    </main>
-    <main class="right-sidebar">
-        <article class="latest-posts">
-            <h3 class="section-title"> Latest Posts</h3>
-            {% if latest_posts %}
-            <section class="latest-post-container">
-                {% for post in latest_posts %}
-                <p>
-                    <a href="{% url 'posts:post_detail' post.id post.slug %}" class="latest-post-link">{{post.title}} | {{post.created_on}} </a>
-                {% endfor %}
-
-            </section>
-            {% endif %}
-        </article>
-
     </main>
 </main>
 {% endblock %}

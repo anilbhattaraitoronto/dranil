@@ -1,0 +1,17 @@
+{% extends 'mainlayout.html' %}
+{% block title %}{{topic.capitalize}} {% endblock title %}
+
+{% block content %}
+<main class="topic-content">
+    <h3 class="section-title">Posts on {{topic.capitalize}}</h3>
+    {% if topic_posts %}
+    <article class="topic-post-list">
+        {% for post in topic_posts %}
+        <section class="topic-post">
+            <p> <a href="{% url 'posts:post_detail' post.id post.slug %}"> {{post.title}} | {{post.author}} | {{post.created_on}} </a></p>
+        </section>
+        {% endfor %}
+    </article>
+    {% endif %}
+</main>
+{% endblock %}

@@ -33,9 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'posts',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +60,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'posts.context_processors.post_titles',
             ],
         },
     },
@@ -127,3 +130,7 @@ if DEBUG:
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
