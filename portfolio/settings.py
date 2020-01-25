@@ -121,10 +121,10 @@ except ImportError:
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 if DEBUG:
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'portfolio/staticfiles'), ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
