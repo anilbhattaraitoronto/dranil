@@ -33,11 +33,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'posts',
-    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,7 +128,3 @@ if DEBUG:
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
