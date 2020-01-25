@@ -66,7 +66,7 @@
             <section class="edit-comment-section">
                 <button class="open-edit-comment">Edit</button> <button class="open-delete-comment">Delete</button>
                 <form action="#" class="edit-comment-form">
-                    <h4 class="form-title">Edit Comment <span class="close-edit-comment-form">Close</span> </h4>
+                    <span class="close-edit-comment-form">Close</span> 
                     {% csrf_token %}
                     <input type="hidden" name='comment_id' value="{{comment.id}}">
                     <label for="id_text">Edit Comment:</label>
