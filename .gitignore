@@ -8,7 +8,6 @@ local_settings.py
 
 __pycache__/
 
-portfolio/staticfiles/
 
 myenv
 
