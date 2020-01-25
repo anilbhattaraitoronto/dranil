@@ -1,0 +1,619 @@
+
+/* mostly for mainlayout.html */
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+*{
+    /* 5 color themes */
+    --themeLightGreen : rgb(238, 241, 233); /* mostly for background */
+    --themeBrightGreen: rgb(108, 148, 29); /* a few block backgrounds and contrast font color */
+    --themeRed : rgb(182, 39, 7); /* Sprinkle here and there not make it dominant*/
+    --themeBlue: rgb(26, 51, 104);
+    --themeDarkBlue: rgb(26, 48, 94); /* background and font color */
+    padding: 0;
+    margin: 0;
+    word-spacing: 1px;
+    line-height: 1.5;
+}
+
+body{
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    font-family: Arial;
+    background: var(--themeDarkBlue);
+    /* background-repeat: no-repeat; */
+}
+a{
+    text-decoration: none;
+    font-size: 15px;
+    color: var(--themeDarkBlue);
+}
+button{
+    all: unset;
+}
+input{
+    all:unset;
+    display: block;
+    width: 100%;
+    margin: auto;
+    padding: 2px 0;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(73, 73, 102, 0.253);
+    background: var(--themeLightGreen);
+    color: var(--themeDarkBlue);
+}
+label{
+    display: block;
+    padding: 4px 0;
+}
+textarea{
+    width: 100%;
+}
+p, h1, h2, h3, h4, h5, h6{
+    padding-bottom: 8px;
+}
+p{
+    font-size: 15px;
+}
+.main-header{
+    position: relative;
+    margin-bottom: 2px;
+    width: 100%;
+    height: 80px;
+    background: var(--themeBlue);
+    border: 1px solid rgb(28, 45, 53);
+}
+.masthead-logo{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+.auth-nav{
+    text-align: right;
+    position: absolute;
+    width: 100%;
+    max-width: 320px;
+    right: 8px;
+    bottom: 4px;
+    z-index: 12;
+}
+.auth-link, .admin-nav-title{
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    color: var(--themeLightGreen);
+    margin: 4px;
+    text-align: right;
+    transition: 200ms all ease-in;
+}
+.auth-link > span{
+    font-style: italic;
+    color: gray;
+}
+.auth-link:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+.admin-nav-container{
+    color: white;
+    list-style: none;
+    cursor: pointer;
+    display: inline;
+    font-size: 14px;
+    /* position: relative; */
+}
+.admin-nav{
+    position: absolute;
+    float: right;
+    top: 22px;
+    right: -8px;
+    transform: scale(0);
+    color: var(--themeLightGreen);
+    width: 150px;
+    text-align: right;
+    transition: 400ms all ease-in;
+    background: var(--themeBlue);
+    color: var(--themeLightGreen);
+    z-index: 20;
+}
+.admin-nav > a{
+    display: block;
+    padding-right: 4px;
+    text-align: right;
+    color: var(--themeLightGreen);
+}
+.admin-nav > a:hover{
+    color: var(--themeLightGreen);
+}
+.admin-nav-container:hover > .admin-nav{
+    transform: scale(1);
+}
+
+.login-register-button{
+    cursor: pointer;
+    padding: 4px;
+    color: lightgray;
+    transition: 250ms all ease-in;
+    font-size: 14px;
+}
+.login-register-button:hover{
+    color: white;
+}
+.login-register-forms{
+    text-align: left;
+    background: var(--themeLightGreen);
+    color: var(--themeDarkBlue);
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    transition: 250ms all ease-in;
+    transform: scale(0);
+    z-index:10;
+}
+.login-register-forms.show{
+    transform: scale(1);
+}
+.close-forms-button{
+    font-size: 13px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px 8px;
+    text-align: center;
+    color: var(--themeLightGreen);
+    background: var(--themeDarkBlue);
+    transition: 200ms all ease-in;
+}
+.close-forms-button:hover{
+    background: white;
+    color: var(--themeDarkBlue)
+}
+
+.login-form, .create-account-form{
+    margin: 8px 0;
+    background: var(--themeLightGreen);
+    padding: 8px 20px;
+    box-shadow: 0 0 1px var(--themeDarkBlue);
+    border-radius: 4px;
+}
+.login-form >label, .create-account-form > label{
+    color: rgb(135, 138, 145);
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+.form-title{
+    padding-bottom: 12px;
+    color: var(--themeDarkBlue);
+    text-align: center;
+}
+.submit-button{
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 1px var(--themeDarkBlue);
+    margin-top: 8px;
+    padding: 4px 0;
+    color: var(--themeLightGreen);
+    background: var(--themeDarkBlue);
+    transition: 250ms all ease-in;
+}
+.submit-button:hover{
+    background: var(--themeBlue);
+    color: var(--themeLightGreen);
+}
+.masthead-title{
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    text-align: center;
+    font-size: 18px;
+    color: var(--themeLightGreen);
+    box-shadow: 0 0 1px var(--themeLightGreen);
+    transition: 300ms all ease-in;
+    padding: 4px;
+}
+.masthead-title:hover{
+    text-decoration: underline;
+}
+
+footer{
+    width: 100%;
+    max-width: 1000px;
+    margin: 8px auto;
+    text-align: center;
+    background: var(--themeLightGreen);
+    color: var(--themeDarkBlue);
+    font-size: 14px;
+    opacity: .3;
+    padding: 8px 0;
+}
+
+.main-nav{
+    position: relative;
+    padding: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /* background: var(--themeDarkBlue); */
+    width: 320px;
+}
+.main-link{
+    color: var(--themeLightGreen);
+    padding-right: 16px;
+    transition: 200ms all ease-in;
+}
+.main-link:hover, .main-link:active{
+    text-decoration: underline;
+}
+
+.topic-list-container{
+    cursor: pointer;
+    display: inline;
+}
+.topic-list{
+    list-style-type: none;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    transform: scale(0);
+    color:red;
+    transition: 200ms all ease-in-out;
+    z-index: 100;
+    background: white;
+}
+.topic-list>li{
+    padding: 4px 8px;
+}
+.topic-list>li>a{
+    width: 100px;
+}
+.topic-list>li> a:hover{
+    text-decoration: underline;
+    color: darkblue;
+}
+
+.topic-list-container:hover > .topic-list{
+    transform: scale(1);
+}
+
+/* Contact Form */
+.show-contact-form-button{
+    cursor: pointer;
+    color: var(--themeLightGreen);
+    font-size: 14px;
+    transition: 200ms all ease-in;
+}
+.show-contact-form-button:hover{
+    text-decoration: underline;
+}
+.close-contact-form-button{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px;
+    background: var(--themeDarkBlue);
+    color: var(--themeLightGreen);
+    transition: 200ms all ease-in;
+}
+.close-contact-form-button:hover{
+    background: var(--themeBlue);
+}
+.contact-form-container{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: var(--themeLightGreen);
+    transform: scale(0);
+    z-index: 14;
+    transition: 300ms all ease-in;
+}
+.contact-form{
+    width: 100%;
+    max-width: 320px;
+    margin: auto;
+    transition: 250ms all ease-in;
+}
+.contact-form-container.show{
+    transform: scale(1);
+}
+
+.content{
+    position:relative;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.open-add-post-form, .close-add-post-form{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    background: var(--themeBlue);
+    color: white;
+    font-size: 13px;
+    padding: 2px;
+    transition: 300ms all ease-in;
+    border: 1px solid transparent;
+}
+.open-add-post-form:hover, .close-add-post-form:hover{
+    background: var(--themeDarkBlue);
+    border-color: var(--themeBrightGreen);
+}
+.create-post-form{
+    background: lightgray;
+    display: block;
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    transition: 250ms all ease-in;
+    transform: scale(0);
+    z-index: 100;
+}
+.create-post-form.show{
+    transform:scale(1)
+}
+
+/* Home Page Styles */
+.home-page{
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 8px;
+}
+.section-title{
+    background: var(--themeLightGreen);
+    color: var(--themeDarkBlue);
+    padding: 8px;
+    font-weight: 500;
+    border-bottom: 2px solid var(--themeDarkBlue);
+} 
+.main-content, .right-sidebar {
+    width: 100%;
+    background: var(--themeLightGreen);
+    padding: 10px;
+}
+.latest-posts{
+    height: 300px;
+}
+.latest-posts > p{
+    padding: 4px;
+    background: lightgray;
+    margin: 3px 0;
+}
+.latest-posts > p > a:hover{
+    text-decoration: underline;
+}
+.sidebar-contact{
+    width: 100%;
+    margin: auto;
+}
+.contact-form{
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 0 0 1px gray;
+    border-radius: 8px;
+}
+.contact-form > label{
+    color: gray;
+    font-size: 13px;
+    font-style: italic;
+}
+.contact-form >textarea{
+    color: var(--themeDarkBlue);
+    border: none;
+    outline: none;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 8px;
+}
+
+/* Featured Post */
+.post-thumbnail{
+    opacity: .8;
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    margin: 16px 0;
+}
+.post-title{
+    color: var(--themeDarkBlue);
+}
+.post-author{
+    color: var(--themeBlue);
+    font-style: italic;
+}
+.post-keywords{
+    padding: 8px 0;
+    opacity: .7;
+    font-style: italic;
+}
+.post-content{
+    padding: 16px 0;
+}
+.post-date{
+    opacity: .5;
+    font-size: 13px;
+}
+
+/* post detail */
+.detail-content, .topic-content{
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--themeLightGreen);
+    padding: 10px;
+}
+.post-update-delete-container{
+    position: relative;
+}
+
+.update-post-form, .delete-post-form{
+    background: var(--themeLightGreen);
+    position: absolute;
+    transform: scale(0);
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    padding: 20px;
+    transition: 300ms all ease-in;
+    box-shadow: 0 0 1px gray;
+    z-index: 100;
+}
+.update-post-form.show, .delete-post-form.show{
+    transform: scale(1);
+}
+
+.close-update-post-form-button, .close-delete-post-form-button{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px;
+    background: var(--themeBlue);
+    color: var(--themeLightGreen);
+}
+.bread-crumb{
+    font-style: italic;
+    opacity: .7;
+    color: var(--themeBlue);
+}
+.comment-form{
+    background: var(--themeLightGreen);
+    padding: 20px 0;
+    width: 100%;
+    max-width: 320px;
+}
+.comment-button, .delete-post-button, .create-post-button, .update-post-button, .open-update-post-form-button, .open-delete-post-form-button{
+    cursor: pointer;
+    width: 100px;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
+    border-radius: 4px;
+    padding: 4px;
+    background: var(--themeDarkBlue);
+    color: var(--themeLightGreen);
+    transition: 200ms all ease-in;
+}
+.comment-button:hover{
+    background: var(--themeBlue);
+}
+.comments{
+    padding: 8px;
+    border: 1px solid lightgray;
+    font-size: 13px;
+    opacity: .8;
+}
+.comment-section-title{
+    color:  var(--themeBlue);
+    padding: 4px;
+}
+
+.post-comment{
+    position: relative;
+    background: white;
+    padding: 4px;
+    margin: 8px 0;
+    width: 100%;
+}
+.comment-writer{
+    font-style: italic;
+    color: var(--themeBlue);
+}
+
+.edit-comment-section{
+    /* position: relative; */
+}
+
+.open-edit-comment, .open-delete-comment, .edit-comment, .delete-comment{
+    cursor: pointer;
+    width: 80px;
+    display: inline-block;
+    padding: 2px;
+    margin: 8px;
+    text-align: center;
+}
+.open-edit-comment, .edit-comment{
+    background: var(--themeBrightGreen);
+}
+.open-delete-comment, .delete-comment{
+    background: var(--themeRed);
+}
+.open-edit-comment:hover, .open-delete-comment:hover{
+    color: white;
+    transform: scale(1.04)
+}
+
+.edit-comment-form, .delete-comment-form{
+    position: absolute;
+    transform: scale(0);
+    transition: 200ms all ease-in;
+    z-index: 20;
+    background: var(--themeDarkBlue);
+    height: 300px;
+    width: 100%;
+    max-width: 320px;
+}
+.delete-comment-form{
+    height: 100px;
+    background: red;
+    color: var(--themeDarkBlue);
+}
+.edit-comment-form.show, .delete-comment-form.show{
+    margin-top: -40px;
+    transform: scale(1);
+}
+
+.edit-comment-form > .form-title{
+    background: white;
+    padding: 8px;
+    width: 120px;
+    margin:  8px 0;
+}
+.close-edit-comment-form, .close-delete-comment-form{
+    cursor: pointer;
+    background: var(--themeDarkBlue);
+    color: white;
+    position: absolute;
+    padding: 8px;
+    top: 0;
+    right: 0;
+    z-index: 20;
+}
+.topic-post > p> a:hover{
+    text-decoration: underline;
+}
+@media (min-width: 700px){
+    .content{
+        grid-template-columns: 3fr 1fr;
+    }
+    
+}
